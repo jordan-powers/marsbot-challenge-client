@@ -10,7 +10,7 @@ scriptdir = Path(__file__).parent
 os.chdir(scriptdir)
 
 CLIENT_RELEASE_URL = "https://api.github.com/repos/lost1227/marsbot-challenge-client/releases"
-NGINX_URL = "http://nginx.org/download/nginx-1.23.3.zip"
+NGINX_URL = "http://nginx.org/download/nginx-1.28.1.zip"
 
 with urllib.request.urlopen(CLIENT_RELEASE_URL) as socket:
     releases = json.load(socket)
@@ -64,4 +64,3 @@ with runscript.open("w") as outf:
     outf.write(f"cd {str(scriptdir)}\n")
     outf.write("echo Running NGINX... Make sure to start the MarsbotHost program\n")
     outf.write(f"{str(nginx_path / 'nginx.exe')} -c {str(confdir / 'nginx.conf')}\n")
-
