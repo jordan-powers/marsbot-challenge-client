@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     working_dir: /var/www/html/client
     user: node
-    command: sh -c "npm install && ng serve --host 0.0.0.0 --public-host 'localhost'"
+    command: sh -c "npm install && ng serve --host 0.0.0.0"
     expose:
       - '4200'
     volumes:
