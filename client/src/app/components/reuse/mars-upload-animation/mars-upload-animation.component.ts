@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { BehaviorSubject, interval, map, ReplaySubject, Subject, take, takeUntil, timer } from 'rxjs';
 
 @Component({
-  selector: 'app-mars-upload-animation',
-  templateUrl: './mars-upload-animation.component.html',
-  styleUrls: ['./mars-upload-animation.component.scss']
+    selector: 'app-mars-upload-animation',
+    templateUrl: './mars-upload-animation.component.html',
+    styleUrls: ['./mars-upload-animation.component.scss'],
+    standalone: false
 })
 export class MarsUploadAnimationComponent implements OnInit, OnDestroy {
   @Input() animationTimeSeconds!: number

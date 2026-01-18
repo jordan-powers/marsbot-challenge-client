@@ -1,21 +1,20 @@
-<ng-container [ngSwitch]="pageState|async">
 
-<ng-container *ngSwitchCase="stateType.SET_NAME">
+@switch (pageState|async) {
+  @case (stateType.SET_NAME) {
     <mat-card>
-    <mat-card-content>
+      <mat-card-content>
         <form class="configrow" [formGroup]="nameForm" (ngSubmit)="updateName()">
-            <mat-form-field appearance="fill">
-                <mat-label>First Name</mat-label>
-                <input matInput formControlName="name">
-                <mat-error>Name cannot be empty</mat-error>
-            </mat-form-field>
-            <button mat-raised-button color="accent" (click)="updateName()" [disabled]="!nameForm.valid">Go</button>
+          <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error>Name cannot be empty</mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="accent" (click)="updateName()" [disabled]="!nameForm.valid">Go</button>
         </form>
-    </mat-card-content>
+      </mat-card-content>
     </mat-card>
-</ng-container>
-
-<ng-container *ngSwitchCase="stateType.LOADING">
+  }
+  @case (stateType.LOADING) {
     <app-spinner></app-spinner>
-</ng-container>
-</ng-container>
+  }
+}

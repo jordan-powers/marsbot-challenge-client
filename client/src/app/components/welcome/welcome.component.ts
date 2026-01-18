@@ -13,9 +13,10 @@ enum PageState {
 };
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
+    standalone: false
 })
 export class WelcomeComponent {
   protected pageState = new BehaviorSubject<PageState>(PageState.LOADING);

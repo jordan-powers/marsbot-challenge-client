@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { httpInterceptorProviders } from './http-interceptors';
 
 import { AppComponent } from './app.component';
@@ -34,42 +34,36 @@ import { GameEndComponent } from './components/game-end/game-end.component';
 import { MarsUploadAnimationComponent } from './components/reuse/mars-upload-animation/mars-upload-animation.component';
 import { AssignRobotComponent } from './components/assign-robot/assign-robot.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    AssignRobotComponent,
-    WelcomeComponent,
-    SpinnerComponent,
-    PlannerComponent,
-    PlanStepComponent,
-    RescueConfirmComponent,
-    ErrorComponent,
-    GameStartComponent,
-    GameEndComponent,
-    MarsUploadAnimationComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatProgressBarModule,
-    MatLuxonDateModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatChipsModule
-  ],
-  providers: [
-    httpInterceptorProviders
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        AssignRobotComponent,
+        WelcomeComponent,
+        SpinnerComponent,
+        PlannerComponent,
+        PlanStepComponent,
+        RescueConfirmComponent,
+        ErrorComponent,
+        GameStartComponent,
+        GameEndComponent,
+        MarsUploadAnimationComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatProgressBarModule,
+        MatLuxonDateModule,
+        MatDialogModule,
+        MatDividerModule,
+        MatChipsModule], providers: [
+        httpInterceptorProviders,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

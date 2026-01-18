@@ -6,9 +6,10 @@ import { GameStateService } from 'src/app/services/game-state.service';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
-  selector: 'app-game-start',
-  templateUrl: './game-start.component.html',
-  styleUrls: ['./game-start.component.scss']
+    selector: 'app-game-start',
+    templateUrl: './game-start.component.html',
+    styleUrls: ['./game-start.component.scss'],
+    standalone: false
 })
 export class GameStartComponent {
   protected user: UserWithRobot | null = null;

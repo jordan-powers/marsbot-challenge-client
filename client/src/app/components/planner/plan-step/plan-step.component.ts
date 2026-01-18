@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { Direction, GrabStep, MoveStep, RobotPlanStep, RobotPlanStepType, TurnStep } from 'src/app/models/robot-plan.model';
 
 @Component({
-  selector: 'app-plan-step',
-  templateUrl: './plan-step.component.html',
-  styleUrls: ['./plan-step.component.scss']
+    selector: 'app-plan-step',
+    templateUrl: './plan-step.component.html',
+    styleUrls: ['./plan-step.component.scss'],
+    standalone: false
 })
 export class PlanStepComponent {
   @Input() planStep!: RobotPlanStep

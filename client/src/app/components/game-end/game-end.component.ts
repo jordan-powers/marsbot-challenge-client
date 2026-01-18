@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { AppState, AppStateService } from 'src/app/services/app-state.service';
 
 @Component({
-  selector: 'app-game-end',
-  templateUrl: './game-end.component.html',
-  styleUrls: ['./game-end.component.scss']
+    selector: 'app-game-end',
+    templateUrl: './game-end.component.html',
+    styleUrls: ['./game-end.component.scss'],
+    standalone: false
 })
 export class GameEndComponent {
   constructor(

@@ -2,22 +2,38 @@
   <div id="toolbar-container">
     <div id="app-title">Marsbot Challenge</div>
     <div id="user-info">
-      <ng-container *ngIf="user | async as user">
+      @if (user | async; as user) {
         <span id="user-name" >{{user.name}}</span>
         &#8211;
-      </ng-container>
-      <span id="user-robot" *ngIf="robot | async as robotId" (click)="refreshRobot()">Robot {{robotId}}</span></div>
-  </div>
-</mat-toolbar>
+      }
+      @if (robot | async; as robotId) {
+        <span id="user-robot" (click)="refreshRobot()">Robot {{robotId}}</span>
+      }</div>
+    </div>
+  </mat-toolbar>
 
-<div id="mainPage">
-  <ng-container [ngSwitch]="state|async">
-    <app-assign-robot *ngSwitchCase="stateType.ASSIGN_ROBOT"></app-assign-robot>
-    <app-welcome *ngSwitchCase="stateType.NEW_USER"></app-welcome>
-    <app-game-start *ngSwitchCase="stateType.WAIT_FOR_GAME"></app-game-start>
-    <app-planner *ngSwitchCase="stateType.PLANNING"></app-planner>
-    <app-game-end *ngSwitchCase="stateType.END_OF_GAME"></app-game-end>
-    <app-error *ngSwitchCase="stateType.ERROR"></app-error>
-    <div *ngSwitchDefault>Unknown state</div>
-  </ng-container>
-</div>
+  <div id="mainPage">
+    @switch (state|async) {
+      @case (stateType.ASSIGN_ROBOT) {
+        <app-assign-robot></app-assign-robot>
+      }
+      @case (stateType.NEW_USER) {
+        <app-welcome></app-welcome>
+      }
+      @case (stateType.WAIT_FOR_GAME) {
+        <app-game-start></app-game-start>
+      }
+      @case (stateType.PLANNING) {
+        <app-planner></app-planner>
+      }
+      @case (stateType.END_OF_GAME) {
+        <app-game-end></app-game-end>
+      }
+      @case (stateType.ERROR) {
+        <app-error></app-error>
+      }
+      @default {
+        <div>Unknown state</div>
+      }
+    }
+  </div>

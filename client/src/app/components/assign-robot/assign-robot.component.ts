@@ -6,9 +6,10 @@ import { RemoteService } from 'src/app/services/remote.service';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
-  selector: 'app-assign-robot',
-  templateUrl: './assign-robot.component.html',
-  styleUrl: './assign-robot.component.scss'
+    selector: 'app-assign-robot',
+    templateUrl: './assign-robot.component.html',
+    styleUrl: './assign-robot.component.scss',
+    standalone: false
 })
 export class AssignRobotComponent {
   constructor(

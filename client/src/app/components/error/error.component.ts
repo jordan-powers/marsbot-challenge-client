@@ -3,9 +3,10 @@ import { AppState, AppStateService } from 'src/app/services/app-state.service';
 import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
-  selector: 'app-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+    selector: 'app-error',
+    templateUrl: './error.component.html',
+    styleUrls: ['./error.component.scss'],
+    standalone: false
 })
 export class ErrorComponent {
   private message: string | null

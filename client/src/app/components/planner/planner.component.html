@@ -1,77 +1,92 @@
-<ng-container [ngSwitch]="state | async">
 
-<ng-container *ngSwitchCase="stateType.PLANNING">
-<mat-card>
-<mat-card-header *ngIf="solMessage | async as msg">{{msg}}</mat-card-header>
-<mat-card-content>
-    <mat-divider></mat-divider>
-    <h3 class="section-header">Move</h3>
-    <div class="section-body">
-        <mat-form-field>
+@switch (state | async) {
+  @case (stateType.PLANNING) {
+    <mat-card>
+      @if (solMessage | async; as msg) {
+        <mat-card-header>{{msg}}</mat-card-header>
+      }
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <h3 class="section-header">Move</h3>
+        <div class="section-body">
+          <mat-form-field>
             <mat-label>Steps</mat-label>
             <input matInput [formControl]="moveStepsControl">
-            <mat-error *ngIf="moveStepsControl.invalid">{{getMoveErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <button mat-fab color="accent" (click)="addMove(dirs.UP)">
+            @if (moveStepsControl.invalid) {
+              <mat-error>{{getMoveErrorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+          <button mat-fab color="accent" (click)="addMove(dirs.UP)">
             <mat-icon>arrow_upward</mat-icon>
-        </button>
-        <button mat-fab color="accent" (click)="addMove(dirs.DOWN)">
+          </button>
+          <button mat-fab color="accent" (click)="addMove(dirs.DOWN)">
             <mat-icon>arrow_downward</mat-icon>
-        </button>
-    </div>
-    <mat-divider></mat-divider>
-    <h3 class="section-header">Turn</h3>
-    <div class="section-body">
-        <mat-form-field>
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+        <h3 class="section-header">Turn</h3>
+        <div class="section-body">
+          <mat-form-field>
             <mat-label>{{shouldShowDegrees() ? "Degrees" : "Steps"}}</mat-label>
             <input matInput [formControl]="turnStepsControl">
-            <mat-error *ngIf="turnStepsControl.invalid">{{getTurnErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <button mat-fab color="accent" (click)="addTurn(dirs.LEFT)">
+            @if (turnStepsControl.invalid) {
+              <mat-error>{{getTurnErrorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+          <button mat-fab color="accent" (click)="addTurn(dirs.LEFT)">
             <mat-icon>arrow_back</mat-icon>
-        </button>
-        <button mat-fab color="accent" (click)="addTurn(dirs.RIGHT)">
+          </button>
+          <button mat-fab color="accent" (click)="addTurn(dirs.RIGHT)">
             <mat-icon>arrow_forward</mat-icon>
-        </button>
-        <mat-chip-listbox [formControl]="turnScaleControl">
+          </button>
+          <mat-chip-listbox [formControl]="turnScaleControl">
             <mat-chip-option color="accent">Show degrees?</mat-chip-option>
-        </mat-chip-listbox>
-    </div>
-    <mat-divider></mat-divider>
-    <h3 class="section-header">Grab</h3>
-    <div class="section-body">
-        <button mat-raised-button color="accent" (click)="addGrab('Grab')">Grab</button>
-        <button mat-raised-button color="accent" (click)="addGrab('Release')">Release</button>
-    </div>
-    <mat-divider></mat-divider>
-    <h3 class="section-header">Plan</h3>
-    <div class="section-body">
-        <div *ngIf="currPlan | async as plan" id="planStepRoot">
-            <app-plan-step *ngFor="let step of plan" [planStep]="step" [turnScale]="getTurnScale()"></app-plan-step>
+          </mat-chip-listbox>
         </div>
-        <button mat-fab color="warn" (click)="popPlanStep()">
+        <mat-divider></mat-divider>
+        <h3 class="section-header">Grab</h3>
+        <div class="section-body">
+          <button mat-raised-button color="accent" (click)="addGrab('Grab')">Grab</button>
+          <button mat-raised-button color="accent" (click)="addGrab('Release')">Release</button>
+        </div>
+        <mat-divider></mat-divider>
+        <h3 class="section-header">Plan</h3>
+        <div class="section-body">
+          @if (currPlan | async; as plan) {
+            <div id="planStepRoot">
+              @for (step of plan; track step) {
+                <app-plan-step [planStep]="step" [turnScale]="getTurnScale()"></app-plan-step>
+              }
+            </div>
+          }
+          <button mat-fab color="warn" (click)="popPlanStep()">
             <mat-icon>backspace</mat-icon>
-        </button>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="section-body" *ngIf="currPlan | async as plan">
-        <button mat-raised-button color="primary" (click)="sendCurrPlan()" [disabled]="plan.length == 0">
-            Send Plan to Robot on Mars
-        </button>
-        <button mat-raised-button color="primary" (click)="requestRescue()">Rescue</button>
-    </div>
-</mat-card-content>
-</mat-card>
-</ng-container>
-
-<ng-container *ngSwitchCase="stateType.SENDING">
-    <h2 *ngIf="!sendingRescue">Sending plan...</h2>
-    <h2 *ngIf="sendingRescue">Requesting rescue...</h2>
-    <app-mars-upload-animation
-        *ngIf="uploadAnimationTime|async as time"
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+        @if (currPlan | async; as plan) {
+          <div class="section-body">
+            <button mat-raised-button color="primary" (click)="sendCurrPlan()" [disabled]="plan.length == 0">
+              Send Plan to Robot on Mars
+            </button>
+            <button mat-raised-button color="primary" (click)="requestRescue()">Rescue</button>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+  }
+  @case (stateType.SENDING) {
+    @if (!sendingRescue) {
+      <h2>Sending plan...</h2>
+    }
+    @if (sendingRescue) {
+      <h2>Requesting rescue...</h2>
+    }
+    @if (uploadAnimationTime|async; as time) {
+      <app-mars-upload-animation
         [animationTimeSeconds]="time"
         (animationDoneEvent)="uploadAnimationDone()"
-        ></app-mars-upload-animation>
-</ng-container>
-
-</ng-container>
+      ></app-mars-upload-animation>
+    }
+  }
+}

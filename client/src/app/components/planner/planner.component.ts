@@ -16,9 +16,10 @@ enum PageState {
 
 
 @Component({
-  selector: 'app-planner',
-  templateUrl: './planner.component.html',
-  styleUrls: ['./planner.component.scss']
+    selector: 'app-planner',
+    templateUrl: './planner.component.html',
+    styleUrls: ['./planner.component.scss'],
+    standalone: false
 })
 export class PlannerComponent implements OnInit, OnDestroy {
   private readonly VALID_VALUE_RANGES = {
